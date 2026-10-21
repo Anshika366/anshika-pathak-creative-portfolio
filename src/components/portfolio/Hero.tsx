@@ -18,7 +18,7 @@ export function Hero() {
           <p className="mb-6 flex items-center gap-3 font-mono text-[11px] tracking-[0.3em] text-primary">
             <span className="h-px w-8 bg-primary" />FULL-STACK DEVELOPER & AI ENTHUSIAST
           </p>
-          <h1 className="font-display text-[13vw] leading-[0.9] uppercase sm:text-7xl lg:text-[5.6rem] xl:text-8xl">
+          <h1 className="font-display text-[13vw] leading-[0.9] uppercase sm:text-7xl lg:text-[4.4rem] xl:text-[5.2rem]">
             Building digital<br />experiences that<br /><span className="text-gradient-accent">create real impact.</span>
           </h1>
           <p className="mt-6 max-w-lg text-base text-muted-foreground md:text-lg">
