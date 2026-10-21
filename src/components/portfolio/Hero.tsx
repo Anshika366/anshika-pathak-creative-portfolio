@@ -46,7 +46,7 @@ export function Hero() {
           </div>
           {floatCards.map(({ label, icon: Icon, pos, d }) => (
             <motion.div key={label} className={`glass absolute ${pos} flex items-center gap-2 rounded-xl px-3 py-2 sm:px-4 sm:py-3`}
-              animate={reduce ? undefined : { y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, delay: d, ease: "easeInOut" }}>
+              animate={reduce ? { y: 0 } : { y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, delay: d, ease: "easeInOut" }}>
               <span className="grid h-7 w-7 place-items-center rounded-lg bg-primary/15 text-primary"><Icon size={15} /></span>
               <span className="text-[10px] font-semibold tracking-widest sm:text-xs">{label}</span>
             </motion.div>

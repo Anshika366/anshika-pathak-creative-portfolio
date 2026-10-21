@@ -14,9 +14,9 @@ type Fields = z.infer<typeof schema>;
 
 // EmailJS public config (safe for the browser). Set these in your environment to enable sending.
 const EJ = {
-  service: import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined,
-  template: import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined,
-  key: import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined,
+  service: import.meta.env["VITE_EMAILJS_SERVICE_ID"] as string | undefined,
+  template: import.meta.env["VITE_EMAILJS_TEMPLATE_ID"] as string | undefined,
+  key: import.meta.env["VITE_EMAILJS_PUBLIC_KEY"] as string | undefined,
 };
 const configured = !!(EJ.service && EJ.template && EJ.key);
 
