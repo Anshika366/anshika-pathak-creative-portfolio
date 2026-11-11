@@ -1,512 +1,182 @@
-# Anshika Pathak Creative Portfolio
-
-# Build a Premium Full-Stack Developer Portfolio Website Using React
-
-Create a premium, modern, visually stunning, fully responsive developer portfolio website inspired by the attached reference image.
-
-The website should look like a high-end developer portfolio with a cinematic black background, glowing orange-red accents, bold typography, subtle animations, glassmorphism cards, and a professional hero section.
-
-Do not create a generic portfolio template. Make it look custom-designed, polished, interactive, and suitable for applying to Full-Stack Developer jobs.
-
-## 1. Technology Stack
-
-Use the following technologies:
-
-- React.js with Vite
-- JavaScript (ES6+)
-- Tailwind CSS for styling
-- Lucide React for icons
-- Framer Motion for smooth animations
-- React Router only if multiple pages are genuinely needed
-- EmailJS or a suitable contact integration for the contact form
-
-Use reusable React components and clean, maintainable code. Keep the project frontend-focused, with no unnecessary backend.
-
-## 2. Design Reference and Visual Direction
-
-Follow the attached screenshot's visual direction closely.
-
-Design style:
-- Premium dark developer portfolio
-- Black background with subtle charcoal gradients
-- Orange and red glowing accents
-- White headings and muted gray descriptions
-- Rounded main website container
-- Thin borders and subtle glassmorphism
-- Large, bold, condensed typography
-- Modern developer aesthetic
-- Subtle glowing circles and grid patterns in the background
-- Smooth hover effects and micro-interactions
-
-Suggested colors:
-- Background: #080808
-- Secondary background: #111111
-- Accent orange: #FF4D2D
-- Accent red: #E53935
-- Primary text: #F5F5F5
-- Secondary text: #A1A1AA
-- Border: rgba(255,255,255,0.12)
-
-Use fonts such as Space Grotesk for headings and Inter for body text. Use a condensed font for the main hero heading if appropriate.
-
-The layout should have a premium visual hierarchy, generous spacing, excellent readability, and strong contrast.
-
-## 3. Navigation Bar
-
-Create a sleek navigation bar at the top with a custom monogram logo using my initials.
-
-Brand name: Anshika Pathak
-
-Navigation links:
-- About
-- Work
-- Skills
-- Experience
-- Contact
-
-Add a highlighted "LET'S CONNECT ↗" button and a circular menu icon.
-
-Requirements:
-- Sticky navigation
-- Smooth scrolling to sections
-- Active section highlighting
-- Mobile hamburger menu
-- Transparent dark background with a subtle border
-- Hover animations using the orange accent
-
-Keep the header compact and elegant.
-
-## 4. Hero Section — Most Important
-
-Make the first screen visually similar to the attached reference image.
-
-Use a two-column layout on desktop.
-
-Left side:
-Small eyebrow text:
-"FULL-STACK DEVELOPER & AI ENTHUSIAST"
-
-Main headline:
-"BUILDING DIGITAL
-EXPERIENCES THAT
-CREATE REAL IMPACT."
-
-Highlight "CREATE REAL IMPACT." with a vibrant orange-to-red gradient.
-
-Description:
-"I build modern web applications, interactive interfaces, and practical AI-powered tools that solve real-world problems."
-
-Primary button:
-"VIEW MY WORK ↗"
-
-Secondary button:
-"DOWNLOAD RESUME ↓"
-
-Both buttons must work.
-
-Right side:
-Create a visually striking developer portrait area with:
-- A circular orange glowing ring
-- Subtle ambient lighting
-- Floating technology cards
-- A dark cinematic atmosphere
-- A soft orange glow behind the portrait
-
-Use my actual portrait if I upload one. Until then, create a professional placeholder portrait area that can easily be replaced with my photo.
-
-Add three floating glassmorphism cards:
-1. "FULL-STACK DEVELOPER"
-2. "AI ENTHUSIAST"
-3. "PROBLEM SOLVER"
-
-Use subtle floating animations. Keep the layout clean and prevent text or cards from overlapping awkwardly.
-
-Important: Do not use an unrelated stock portrait as if it were me. Make the portrait easy to replace.
-
-## 5. Achievement and Statistics Bar
-
-Below the hero section, add a horizontal stats bar with four items.
-
-Use these initial values as editable placeholders:
-- [PROJECT COUNT] — Projects Completed
-- [EXPERIENCE] — Professional Experience
-- 5+ — Technologies
-- 100% — Commitment to Learning
-
-Use simple icons, thin vertical separators, dark cards, and orange icon highlights.
-
-Do not invent years of professional experience, project counts, or achievements. Keep personal statistics configurable and easy to update.
-
-## 6. Technology Strip
-
-At the bottom of the hero section, create a horizontal strip titled:
-
-"TECH I WORK WITH"
-
-Show recognizable technology icons and labels for:
-- HTML5
-- CSS3
-- JavaScript
-- React
-- Node.js
-- Express.js
-- MongoDB
-- Python
-- SQL
-- Git
-- GitHub
-- WordPress
-
-Use appropriate technology icons from Simple Icons or a compatible icon library.
-
-Animate the strip subtly on hover. On mobile, allow horizontal scrolling.
-
-## 7. About Me Section
-
-Section label: "01 / ABOUT ME"
-
-Heading:
-"DEVELOPER BY SKILL.
-PROBLEM SOLVER BY MINDSET."
-
-Write a concise, authentic introduction explaining that I am a Full-Stack Developer interested in building useful web applications, learning new technologies, and solving practical problems.
-
-Mention my experience working with frontend interfaces, backend APIs, databases, and collaborative development.
-
-Add three small information cards:
-- What I Build
-- How I Think
-- What I'm Learning
-
-Include a small "MORE ABOUT ME ↗" interaction if appropriate.
-
-Do not invent a degree, company, client, or personal achievement.
-
-## 8. Featured Projects Section
-
-Section label: "02 / SELECTED WORK"
-
-Heading:
-"PROJECTS THAT TURN
-IDEAS INTO REALITY."
-
-Build visually impressive project cards with large previews, technology badges, project descriptions, and action buttons.
-
-Include these initial projects:
-
-### Project 1: University Website
-Description:
-"A responsive university website built to present institutional information through a structured and user-friendly interface."
-
-Technologies:
-React, Node.js, Express.js, MongoDB
-
-Include an editable project preview image, a "LIVE DEMO ↗" button, and a "VIEW CODE ↗" button.
-
-### Project 2: Student Goals & Reflection App
-Description:
-"A student-focused application designed to help learners set goals, record reflections, and track their progress over time."
-
-Technologies:
-React, JavaScript, Node.js, MongoDB
-
-Include an editable project preview image, a "VIEW PROJECT ↗" button, and a "VIEW CODE ↗" button.
-
-### Project 3: AI Notes & Doubt Solver
-Description:
-"An AI-powered learning assistant concept that helps students organize notes, ask questions, and understand learning material."
-
-Technologies:
-React, Python, FastAPI, RAG, ChromaDB
-
-Include project preview images and editable demo and GitHub links.
-
-### Project 4: Expense Tracker API
-Description:
-"A backend-focused application for managing expenses, organizing financial records, and retrieving expense data through API endpoints."
-
-Technologies:
-Python, FastAPI, Pandas, NumPy
-
-Include an API-focused project preview and a GitHub button.
-
-Project card design:
-- Large image or visual preview
-- Dark background
-- Thin gray border
-- Orange glow on hover
-- Smooth image zoom
-- Technology badges
-- Project number
-- Short description
-- GitHub and live demo links
-- Subtle reveal animation while scrolling
-
-Make project information configurable through a JavaScript array so I can easily add, remove, or update projects.
-
-IMPORTANT:
-Do not invent live URLs or GitHub repositories. Use editable placeholders until I provide the actual links. Do not claim that unfinished projects are deployed or complete.
-
-## 9. Skills Section
-
-Section label: "03 / TECHNICAL SKILLS"
-
-Heading:
-"THE TOOLS BEHIND
-THE WORK."
-
-Create a clean, premium skills layout grouped into categories.
-
-Frontend:
-- HTML5
-- CSS3
-- JavaScript
-- React
-- Tailwind CSS
-
-Backend:
-- Node.js
-- Express.js
-- Python
-- FastAPI
-- REST APIs
-
-Database:
-- MongoDB
-- MySQL
-- SQL
-- MariaDB
-
-Tools and Platforms:
-- Git
-- GitHub
-- WordPress
-- VS Code
-
-AI and Automation:
-- RAG
-- ChromaDB
-- AI coding tools
-- n8n
-- Zapier
-
-Only display technologies that I can confidently discuss in an interview. Make all skill lists easy to edit.
-
-Design the skills as interactive cards or a balanced grid with icons, subtle glow effects, and hover animations.
-
-Avoid fake percentage-based skill ratings.
-
-## 10. Experience and Learning Journey
-
-Section label: "04 / EXPERIENCE"
-
-Heading:
-"MY JOURNEY SO FAR."
-
-Create a modern vertical timeline showing professional experience, learning, and relevant projects.
-
-Use editable entries with:
-- Role or milestone
-- Organization
-- Dates
-- Short description
-- Technologies used
-
-Start with a configurable Full-Stack Developer profile and an education or learning journey entry.
-
-Keep dates, job titles, and employers editable. Do not invent employers, employment dates, or work experience.
-
-Add a separate section for relevant achievements and learning milestones only when real information is provided.
-
-## 11. Problem-Solving and Development Approach
-
-Create a section with the heading:
-
-"GOOD CODE SOLVES
-REAL PROBLEMS."
-
-Show three principles:
-
-01 — Understand the Problem
-"I focus on understanding the requirements before choosing a solution."
-
-02 — Build with Purpose
-"I aim to create useful, maintainable, and user-friendly applications."
-
-03 — Learn and Improve
-"I continuously improve my problem-solving skills and technical knowledge."
-
-Use a visually engaging three-card layout with orange numbered labels.
-
-## 12. Contact Section
-
-Section label: "05 / CONTACT"
-
-Large heading:
-"LET'S BUILD
-SOMETHING GREAT."
-
-Description:
-"Have an interesting opportunity or project in mind? Let's connect and make it happen."
-
-Add:
-- Email contact link
-- LinkedIn profile link
-- GitHub profile link
-- Optional location text
-- Contact form with name, email, subject, and message
-
-Add a "SEND MESSAGE ↗" button.
-
-Form requirements:
-- Input validation
-- Clear error messages
-- Loading state
-- Success and failure feedback
-- Accessible labels
-
-Use editable placeholders for my contact information. Do not invent an email address or social profile URL.
-
-Do not show a fake success message. Integrate a real email service when credentials are available; otherwise explain that the form requires configuration.
-
-## 13. Footer
-
-Create a minimal dark footer containing:
-- My name or brand
-- Short developer tagline
-- GitHub, LinkedIn, and email links
-- Current year generated dynamically
-- "DESIGNED & BUILT WITH CARE"
-
-Add a subtle back-to-top button.
-
-## 14. Scroll Indicator and Background Effects
-
-Add:
-- A small scroll indicator near the bottom of the hero section
-- Subtle glowing orange particles or ambient light
-- Low-opacity background grid
-- Smooth section reveal animations
-- Gentle cursor-independent hover effects
-
-Keep the background effects lightweight and avoid distracting animations.
-
-Respect the user's reduced-motion preference.
-
-## 15. Responsive Design
-
-The website must work perfectly on:
-- Desktop
-- Laptop
-- Tablet
-- Mobile
-
-Desktop:
-- Large hero heading
-- Two-column hero layout
-- Floating technology cards
-- Horizontal statistics bar
-
-Tablet:
-- Balanced two-column layout when space allows
-- Smaller headings and spacing
-
-Mobile:
-- Single-column hero layout
-- Portrait below or beside the text depending on available space
-- Readable heading sizes
-- Touch-friendly buttons
-- Horizontally scrollable technology strip
-- Stacked project cards
-- Mobile navigation menu
-- No horizontal overflow
-
-Test all sections at common viewport widths.
-
-## 16. React Component Architecture
-
-Organize the project into reusable components such as:
-
-- Navbar.jsx
-- Hero.jsx
-- StatsBar.jsx
-- TechStack.jsx
-- About.jsx
-- Projects.jsx
-- ProjectCard.jsx
-- Skills.jsx
-- Experience.jsx
-- Approach.jsx
-- Contact.jsx
-- Footer.jsx
-
-Create separate data files for projects, skills, and experience if useful.
-
-Use:
-- Semantic HTML
-- Accessible navigation
-- Descriptive alt text
-- Reusable buttons and cards
-- Consistent spacing and design tokens
-- Clean component structure
-- Proper React keys
-- Functional navigation and interactions
-
-Avoid unnecessary dependencies and duplicated code.
-
-## 17. Performance and Code Quality
-
-- Use optimized images and lazy loading where appropriate.
-- Avoid layout shifts.
-- Use lightweight animations.
-- Ensure all buttons and links have meaningful actions.
-- Ensure the page works without console errors.
-- Avoid unnecessary API calls.
-- Use environment variables for any API keys.
-- Never expose secrets in frontend code.
-- Add appropriate metadata and a favicon.
-- Use meaningful page title and SEO description.
-- Keep the website easy to maintain and deploy.
-
-## 18. Final Design Requirements
-
-The final result should feel like a premium personal developer brand, not a basic student portfolio.
-
-Prioritize:
-1. A stunning first screen inspired by the reference image.
-2. Strong typography and orange-red accents.
-3. An attractive portrait area.
-4. Beautiful project cards.
-5. Smooth scrolling and subtle animations.
-6. Mobile responsiveness.
-7. Real, editable personal information.
-8. Working navigation, resume download, project links, and contact interactions.
-
-Build the complete website, not just a static mockup or hero section.
-
-Start by implementing the complete visual design and component structure. Use realistic placeholders for unknown personal information and make them easy to replace later.
-
-Before finishing, verify the responsive layout, navigation, animations, project links, and form states.
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://anshika-pathak-creative-portfolio.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/927ea990-4dce-4de1-82f9-c3eb5badd15e).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+<div align="center">
+
+# ✨ Anshika Pathak — Developer Portfolio
+
+**Full-Stack Developer & AI Enthusiast**
+
+A dark-themed, responsive developer portfolio built with **React**, **TypeScript**, **TanStack Start**, **Tailwind CSS v4**, and **Framer Motion** — featuring interactive 3D project cards, live GitHub contribution heatmap, direct inbox contact delivery, and smooth scroll-triggered animations.
+
+[![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![TanStack Start](https://img.shields.io/badge/TanStack_Start-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)](https://tanstack.com/start)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white)](https://vitest.dev/)
+
+[🌐 GitHub Profile](https://github.com/Anshika366) · [💼 LinkedIn](https://www.linkedin.com/in/anshikapathakdev/) · [✉️ Contact](mailto:anshikapathak25@navgurukul.org)
+
+</div>
+
+---
+
+## 🎯 Key Features
+
+- **⚡ Hero & Animated Metrics Bar:** Staggered character-by-character display typography (`Anton` + `Space Grotesk`), interactive desktop portrait parallax with glowing orange-red halo ring, floating role pills, animated stat counters, and an infinite tech stack marquee.
+- **🃏 Interactive Section Animations:** Replay-on-scroll word-by-word heading reveals (`work-reveal-root`), interactive card-swap grid in **About Me**, 3D tilt & sheen spotlight effects on **Selected Work** cards, and `prefers-reduced-motion` compliance throughout.
+- **📊 Live GitHub Contribution Heatmap (`Anshika366`):**
+  - Powered by a TanStack Start server function (`createServerFn`) with 15-minute server caching (`src/lib/github-contributions.ts`) and `@tanstack/react-query` client polling.
+  - Displays all-time total contributions (`2025–2026`), trailing 12-month calendar count, month/weekday labels, 5-level GitHub green intensity scale, `"Less — More"` legend, hover/focus/tap date tooltips, loading skeleton, and retry state.
+- **✉️ Contact Form with Direct Inbox Delivery:**
+  - Client-side **Zod** validation (`name`, `email`, `subject`, `message`), red border hover focus on the glass form card, and live inbox delivery via **FormSubmit** AJAX (plus optional **EmailJS** env support) with a 10-second auto-dismiss confirmation banner.
+- **📱 Responsive Across Every Screen Size:** Crafted to scale cleanly from `320 px` phones up through tablets (`640 px–1023 px`), laptops, and ultra-wide desktops with `overflow-x-clip` sticky nav safety, responsive hamburger drawer, and zero horizontal overflow.
+
+---
+
+## 🧭 Portfolio Sections
+
+| # | Section | Highlights |
+| :-: | :--- | :--- |
+| 🔝 | **Hero (`#top`)** | Animated headline, portrait halo lighting, floating badges, downloadable `/resume.pdf`, stats bar, and tech marquee |
+| 01 | **About Me (`#about`)** | Intro narrative + 3D interactive card-swap summary cards (*What I Build*, *How I Think*, *What I'm Learning*) |
+| 02 | **Selected Work (`#work`)** | 4 project cards with 3D hover tilt, visual previews, color-coded tech chips, live demos, and source links |
+| 03 | **Technical Skills (`#skills`)** | 6 grouped cards covering Frontend, Backend, Databases, Tools & Platforms, AI/ML, and CS fundamentals |
+| 04 | **Education (`#education`)** | Academic degree & Software Development Diploma cards with red hover outlines and skill tags |
+| 05 | **Experience (`#experience`)** | Timeline entry for the 3-month **Web Development Intern** role at **Honeybee Digital** |
+| 💡 | **Approach (`#approach`)** | Engineering workflow principles (*Understand the Problem*, *Build with Purpose*, *Learn and Improve*) |
+| 📈 | **GitHub Activity (`#github-activity`)** | Live `Anshika366` GitHub contribution heatmap + all-time total counter |
+| 06 | **Contact & Footer (`#contact`)** | Direct email/social sidebar, validated contact form, and 3-column obsidian footer with quick navigation |
+
+---
+
+## 🛠️ Featured Projects
+
+| Project | Summary | Tech Stack | Links |
+| :--- | :--- | :--- | :--- |
+| **💸 ExpenseFlow** | Full-stack personal expense manager with wallet tracking, category budgets, and spending analytics | React.js, Python, FastAPI, MongoDB, Tailwind CSS, JWT, REST API, Docker | [Live](https://expenseflow-flax.vercel.app/) · [Code](https://github.com/Anshika366/expenseflow) |
+| **🛍️ NexusStore** | E-commerce storefront & protected admin portal with cart, wishlist, inventory, and order management | React.js, JavaScript, Vite, React Router, TanStack Query, Axios, REST API | [Live](https://nexus-ecommerce-admin-portal-zeta.vercel.app/) · [Code](https://github.com/Anshika366/Nexus-ecommerce-admin-portal) |
+| **🎙️ VoxSales AI** | Multilingual AI voice sales agent handling calls, objection handling, lead qualification, and logging | React.js, JavaScript, Node.js, Gemini API, Web Speech API, Tailwind CSS | [Live](https://voxsales-ai.vercel.app/) · [Code](https://github.com/Anshika366/voxsales-ai) |
+| **🛡️ RakshaX** | Safety-focused PWA sending emergency SOS alerts with live GPS coordinates via SMS, WhatsApp, voice & email | React.js, TypeScript, Node.js, Express.js, Supabase PostgreSQL, Twilio, SendGrid, Leaflet | [Code](https://github.com/Anshika366/RakshaX) |
+
+---
+
+## 🧰 Tech Stack
+
+| Category | Technologies |
+| :--- | :--- |
+| **Framework & Routing** | React 19, TypeScript, Vite 8, TanStack Start, TanStack Router, TanStack Query |
+| **Styling & Motion** | Tailwind CSS v4, Framer Motion, CSS Grid/Glassmorphism, Anton / Space Grotesk / Inter fonts |
+| **Icons & UI** | Lucide React, React Icons, Radix UI primitives |
+| **Validation & Mail** | Zod, FormSubmit AJAX (default zero-config inbox delivery), optional EmailJS |
+| **Testing & Tooling** | Vitest, React Testing Library (`@testing-library/react`, `@testing-library/jest-dom`), ESLint, Prettier |
+| **Build & Runtime** | Nitro (`cloudflare-module` preset by default; auto-detects Vercel / Netlify in CI) |
+
+---
+
+## 📁 Project Structure
+
+```text
+anshika-pathak-creative-portfolio/
+├── public/
+│   ├── images/                     # Portrait, internship emblem & project preview visuals
+│   ├── favicon.svg
+│   └── resume.pdf                  # Downloadable resume linked from Hero CTA
+├── src/
+│   ├── components/
+│   │   ├── portfolio/
+│   │   │   ├── Navbar.tsx          # Sticky navigation bar + responsive mobile drawer
+│   │   │   ├── Hero.tsx            # Headline reveal, portrait halo, stats bar & tech marquee
+│   │   │   ├── Sections.tsx        # About, Projects, Skills, Education, Experience & Approach
+│   │   │   ├── GitHubActivity.tsx  # Live GitHub contribution calendar & interactive tooltips
+│   │   │   ├── Contact.tsx         # Contact form, FormSubmit/EmailJS mail & obsidian Footer
+│   │   │   └── ui.tsx              # Shared Reveal, SafeLink & AnimatedSectionHead helpers
+│   │   └── ui/                     # Reusable Shadcn / Radix UI primitives
+│   ├── data/
+│   │   └── portfolio.ts            # Personal profile, stats, projects, skills, education & experience
+│   ├── lib/
+│   │   └── github-contributions.ts # Server function & HTML/GraphQL GitHub activity parser + cache
+│   ├── routes/
+│   │   ├── __root.tsx              # Root shell, head meta tags, fonts & React Query provider
+│   │   └── index.tsx               # Main landing page assembling all sections
+│   ├── test/
+│   │   ├── app-routing.test.tsx    # Route matching test
+│   │   ├── contact-form.test.tsx   # Confirmation banner 10s auto-dismiss & Footer links test
+│   │   └── responsive-audit.test.tsx # Section rendering & responsive markup checks
+│   ├── router.tsx
+│   ├── server.ts
+│   └── styles.css                  # Theme tokens, glassmorphism cards & reduced-motion styles
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── vitest.config.ts
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- **Node.js** `v18+` (recommended `v20+` or `v22+`)
+- **npm** (comes with Node.js)
+
+### Local Installation & Development
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/Anshika366/anshika-pathak-creative-portfolio.git
+cd anshika-pathak-creative-portfolio
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the local dev server (http://localhost:8080)
 npm run dev
 ```
+
+### Available Scripts
+
+| Command | Description |
+| :--- | :--- |
+| `npm run dev` | Starts Vite + TanStack Start SSR dev server |
+| `npm run build` | Builds client, SSR & Nitro production bundles (`.output/`) |
+| `npm run preview` | Previews the built production output locally |
+| `npm test` | Runs Vitest suite (`src/test/`) |
+| `npm run lint` | Runs ESLint across the repository |
+| `npm run format` | Formats files using Prettier |
+
+---
+
+## ⚙️ Optional Environment Variables
+
+Everything works out of the box without any `.env` file. You can optionally configure:
+
+- **GitHub API (Server-side only — never prefix with `VITE_`):**
+  - `GITHUB_TOKEN`: Personal Access Token used on the server for GitHub GraphQL queries (falls back automatically to cached public contribution fetching if omitted).
+- **EmailJS (Optional client override):**
+  - `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY`: When set, sends contact form submissions through EmailJS instead of FormSubmit.
+
+---
+
+## 🌐 Deployment
+
+Because the live GitHub Activity calendar uses a TanStack Start server function (`createServerFn`), deploy to a platform with serverless/SSR support (**Cloudflare Workers**, **Vercel**, or **Netlify**):
+
+### Option 1: Cloudflare Workers (Preconfigured)
+```bash
+npm run build
+npx wrangler login
+npx nitro deploy --prebuilt
+```
+*(Or connect the GitHub repository in Cloudflare Dashboard with build command `npm run build` and deploy command `npx nitro deploy --prebuilt`.)*
+
+### Option 2: Vercel / Netlify
+1. Import **`Anshika366/anshika-pathak-creative-portfolio`** (`main` branch) in Vercel or Netlify.
+2. Keep build command as **`npm run build`** (Nitro automatically detects the CI platform).
+3. On first live submission from your deployed URL, click **"Activate Form"** in the confirmation email sent by FormSubmit to activate inbox delivery for that domain.
+
+---
+
+<div align="center">
+
+Built with care by **[Anshika Pathak](https://github.com/Anshika366)** · [LinkedIn](https://www.linkedin.com/in/anshikapathakdev/) · [Email](mailto:anshikapathak25@navgurukul.org)
+
+</div>
