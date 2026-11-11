@@ -156,25 +156,6 @@ Everything works out of the box without any `.env` file. You can optionally conf
 
 ---
 
-## 🌐 Deployment
-
-Because the live GitHub Activity calendar uses a TanStack Start server function (`createServerFn`), deploy to a platform with serverless/SSR support (**Cloudflare Workers**, **Vercel**, or **Netlify**):
-
-### Option 1: Cloudflare Workers (Preconfigured)
-```bash
-npm run build
-npx wrangler login
-npx nitro deploy --prebuilt
-```
-*(Or connect the GitHub repository in Cloudflare Dashboard with build command `npm run build` and deploy command `npx nitro deploy --prebuilt`.)*
-
-### Option 2: Vercel / Netlify
-1. Import **`Anshika366/anshika-pathak-creative-portfolio`** (`main` branch) in Vercel or Netlify.
-2. Keep build command as **`npm run build`** (Nitro automatically detects the CI platform).
-3. On first live submission from your deployed URL, click **"Activate Form"** in the confirmation email sent by FormSubmit to activate inbox delivery for that domain.
-
----
-
 <div align="center">
 
 Built with care by **[Anshika Pathak](https://github.com/Anshika366)** · [LinkedIn](https://www.linkedin.com/in/anshikapathakdev/) · [Email](mailto:anshikapathak25@navgurukul.org)
