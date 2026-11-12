@@ -19,6 +19,13 @@ A dark-themed, responsive developer portfolio built with **React**, **TypeScript
 
 ---
 
+## 🔗 Project Links
+
+- **GitHub Repository:** [https://github.com/Anshika366/anshika-pathak-creative-portfolio.git](https://github.com/Anshika366/anshika-pathak-creative-portfolio.git)
+- **Live Portfolio:** [https://anshika-pathak-creative-portfolio.anshikapathak25.workers.dev/](https://anshika-pathak-creative-portfolio.anshikapathak25.workers.dev/)
+
+---
+
 ## 🎯 Key Features
 
 - **⚡ Hero & Animated Metrics Bar:** Staggered character-by-character display typography (`Anton` + `Space Grotesk`), interactive desktop portrait parallax with glowing orange-red halo ring, floating role pills, animated stat counters, and an infinite tech stack marquee.
