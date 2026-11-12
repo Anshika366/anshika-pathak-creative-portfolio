@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties, type Poin
 import { motion, useReducedMotion } from "framer-motion";
 import { Layers, Lightbulb, BookOpen, Github, ExternalLink, Calendar, MapPin, Clock, type LucideIcon } from "lucide-react";
 import { projects, skillGroups, education, experience, type Project } from "@/data/portfolio";
-import { Reveal, SafeLink, useReplayInView } from "./ui";
+import { Reveal, SafeLink } from "./ui";
 
 const aboutSection = "mx-auto max-w-7xl px-5 pt-24 pb-8 md:px-8 md:pt-32 md:pb-10 scroll-mt-16";
 const workSection = "mx-auto max-w-7xl px-5 pt-8 pb-14 md:px-8 md:pt-12 md:pb-16 scroll-mt-16";
@@ -108,10 +108,42 @@ function renderStaggeredWords(text: string, wordClassName: string, baseDelayMs: 
   );
 }
 
+/** Triggers on viewport entry and silently resets once completely outside the viewport. */
+function useReplayInView<T extends HTMLElement>(ref: RefObject<T | null>, minRatio = 0.12) {
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+        if (!entry.isIntersecting) {
+          setInView(false);
+        } else if (entry.intersectionRatio >= minRatio || entry.boundingClientRect.height < window.innerHeight * 0.2) {
+          setInView(true);
+        }
+      },
+      { threshold: [0, minRatio] },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [ref, minRatio]);
+
+  return inView;
+}
+
 const cardFallTimings = [
-  { delayMs: 0, durationS: 0.28 },
-  { delayMs: 40, durationS: 0.32 },
-  { delayMs: 80, durationS: 0.35 },
+  { delayMs: 0, durationS: 0.56 },
+  { delayMs: 75, durationS: 0.62 },
+  { delayMs: 150, durationS: 0.68 },
 ] as const;
 
 type AboutCardData = { t: string; d: string; i: LucideIcon };
@@ -158,7 +190,7 @@ function AboutCardGrid({
     };
   }, []);
 
-  // Enable hover swap shortly after the quick card landing transition
+  // Wait until all 3 cards finish falling + landing bounce (~830ms) before enabling hover swap
   useEffect(() => {
     if (!cardsInView) {
       setCardsLanded(false);
@@ -166,7 +198,7 @@ function AboutCardGrid({
       setTilt({ rx: 0, ry: 0, mx: 50, my: 30 });
       return;
     }
-    const timer = window.setTimeout(() => setCardsLanded(true), 380);
+    const timer = window.setTimeout(() => setCardsLanded(true), 860);
     return () => window.clearTimeout(timer);
   }, [cardsInView]);
 
@@ -380,11 +412,24 @@ export function About() {
       return;
     }
 
-    if (contentRect.top <= vh && contentRect.bottom >= navBottom) {
+    if (contentRect.top <= vh * 0.85 && contentRect.bottom >= navBottom + 40) {
       setTextInView(true);
     }
 
-    if (cardsRect.top <= vh && cardsRect.bottom >= navBottom) {
+    // Trigger falling cards cleanly when complete About Me is in view (or once the cards themselves are clearly onscreen if header scrolled above navbar)
+    const availableH = vh - navBottom;
+    const contentFits = contentRect.height <= availableH - 16;
+    const cardsVisibleH = Math.max(0, Math.min(cardsRect.bottom, vh) - Math.max(cardsRect.top, navBottom));
+    const cardsClearlyVisible =
+      cardsRect.top >= navBottom &&
+      (cardsRect.bottom <= vh - 4 || cardsVisibleH >= Math.min(cardsRect.height * 0.72, availableH * 0.68));
+    const completeInView = contentFits
+      ? (contentRect.top >= navBottom + 4 && contentRect.bottom <= vh - 4) ||
+        (contentRect.top < navBottom + 4 && cardsClearlyVisible)
+      : cardsRect.top >= navBottom + 8 &&
+        (cardsRect.bottom <= vh - 8 || cardsVisibleH >= Math.min(cardsRect.height * 0.72, availableH * 0.68));
+
+    if (completeInView) {
       setTextInView(true);
       setCardsInView(true);
     }
@@ -428,7 +473,7 @@ export function About() {
     lines: aboutHeadlineLines,
     wordClassName: "about-word",
     delayVar: "--about-delay",
-    staggerMs: 26,
+    staggerMs: 70,
   });
 
   return (
@@ -449,16 +494,16 @@ export function About() {
         </div>
         <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
           <div className="space-y-5 text-lg text-muted-foreground">
-            <p className="about-copy" style={{ "--about-delay": "40ms" } as CSSProperties}>
+            <p className="about-copy" style={{ "--about-delay": "460ms" } as CSSProperties}>
               I'm a Full-Stack Developer who enjoys building web applications that are genuinely useful — the kind people open because they help, not because they have to.
             </p>
-            <p className="about-copy" style={{ "--about-delay": "80ms" } as CSSProperties}>
+            <p className="about-copy" style={{ "--about-delay": "580ms" } as CSSProperties}>
               I've worked across frontend interfaces, backend APIs and databases, and I'm comfortable collaborating with others through Git-based workflows. I like learning new technologies and applying them to practical problems.
             </p>
             <a
               href="#experience"
               className="about-copy inline-block text-xs font-semibold tracking-widest text-primary transition-colors duration-200 hover:underline"
-              style={{ "--about-delay": "120ms" } as CSSProperties}
+              style={{ "--about-delay": "700ms" } as CSSProperties}
             >
               MORE ABOUT ME ↗
             </a>
@@ -470,7 +515,7 @@ export function About() {
   );
 }
 
-function ProjectVisual({ p, eager = false }: { p: Project; eager?: boolean }) {
+function ProjectVisual({ p }: { p: Project }) {
   if (p.image) {
     return (
       <div className="relative flex h-full w-full items-center justify-center overflow-hidden px-4 pb-5 pt-11 sm:px-5 sm:pb-6 sm:pt-12">
@@ -480,8 +525,7 @@ function ProjectVisual({ p, eager = false }: { p: Project; eager?: boolean }) {
         <img
           src={p.image}
           alt={`${p.title} preview`}
-          loading={eager ? "eager" : "lazy"}
-          decoding="async"
+          loading="lazy"
           className="project-card-media relative z-10 max-h-full max-w-full rounded-xl border border-white/12 object-contain shadow-[0_18px_40px_-14px_rgba(0,0,0,0.92),0_0_0_1px_rgba(255,255,255,0.06)]"
         />
       </div>
@@ -558,14 +602,14 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
     target.style.setProperty("--tilt-ry", "0deg");
   };
 
-  const colDelayMs = (index % 2) * 30;
+  const colDelayMs = (index % 2) * 85;
   const titleWordsCount = p.title.split(" ").length;
   const descWordsCount = p.description.split(" ").length;
-  const descStartMs = colDelayMs + 25 + titleWordsCount * 14;
-  const descEndMs = descStartMs + Math.min(descWordsCount * 6, 90);
-  const techStartMs = descEndMs + 10;
+  const descStartMs = colDelayMs + 75 + titleWordsCount * 46;
+  const descEndMs = descStartMs + descWordsCount * 22;
+  const techStartMs = descEndMs + 30;
   const techCount = p.techLogos ? p.techLogos.length : p.tech.length;
-  const linksStartMs = techStartMs + Math.min(techCount * 12, 80);
+  const linksStartMs = techStartMs + techCount * 42 + 40;
 
   return (
     <div
@@ -576,10 +620,10 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
     >
       <motion.div
         className="h-full"
-        initial={reduceMotion ? false : { opacity: 0.94, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.01 }}
-        transition={{ duration: 0.24, delay: 0, ease: [0.22, 1, 0.36, 1] }}
+        initial={reduceMotion ? false : { opacity: 0, y: 35, scale: 0.97 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.12 }}
+        transition={{ duration: 0.75, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="project-card-lift relative h-full">
           <article
@@ -589,17 +633,17 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
             <span aria-hidden className="project-card-spotlight pointer-events-none z-20" />
             <span aria-hidden className="project-card-sheen pointer-events-none z-20" />
             <div className="relative aspect-[16/10] shrink-0 overflow-hidden border-b border-border">
-              <ProjectVisual p={p} eager={index < 2} />
+              <ProjectVisual p={p} />
               <span
                 className="project-card-index work-chip absolute left-4 top-4 z-20 font-display text-3xl text-primary"
-                style={{ "--work-delay": `${colDelayMs + 10}ms` } as CSSProperties}
+                style={{ "--work-delay": `${colDelayMs + 20}ms` } as CSSProperties}
               >
                 {String(index + 1).padStart(2, "0")}
               </span>
               {p.status && (
                 <span
                   className="work-chip absolute right-4 top-4 z-20 rounded-full border border-border bg-background/70 px-3 py-1 text-[10px] tracking-widest"
-                  style={{ "--work-delay": `${colDelayMs + 20}ms` } as CSSProperties}
+                  style={{ "--work-delay": `${colDelayMs + 60}ms` } as CSSProperties}
                 >
                   {p.status.toUpperCase()}
                 </span>
@@ -608,10 +652,10 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
             </div>
             <div className="flex flex-1 flex-col p-6 md:p-8">
               <h3 className="project-card-title font-heading text-2xl font-bold tracking-[-0.015em] text-zinc-100 group-hover:text-white">
-                {renderStaggeredWords(p.title, "work-word", colDelayMs + 15, 16)}
+                {renderStaggeredWords(p.title, "work-word", colDelayMs + 45, 52)}
               </h3>
               <p className="mt-3 text-muted-foreground">
-                {renderStaggeredWords(p.description, "work-word", descStartMs, 6)}
+                {renderStaggeredWords(p.description, "work-word", descStartMs, 22)}
               </p>
               {p.techLogos ? (
                 <ul className="mt-5 flex min-h-[26px] flex-wrap items-center gap-x-3 gap-y-1">
@@ -619,7 +663,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
                     <li
                       key={name}
                       className="work-chip inline-flex items-center gap-1.5 py-0.5 text-[11px] font-medium text-zinc-300/90 transition-colors duration-300 group-hover:text-zinc-200 hover:!text-white"
-                      style={{ "--work-delay": `${techStartMs + idx * 12}ms` } as CSSProperties}
+                      style={{ "--work-delay": `${techStartMs + idx * 42}ms` } as CSSProperties}
                     >
                       <Icon size={13} style={{ color }} className="shrink-0" aria-hidden />
                       <span>{name}</span>
@@ -632,7 +676,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
                     <li
                       key={t}
                       className="work-chip rounded-full border border-border px-3 py-1 text-[11px] text-muted-foreground"
-                      style={{ "--work-delay": `${techStartMs + idx * 12}ms` } as CSSProperties}
+                      style={{ "--work-delay": `${techStartMs + idx * 42}ms` } as CSSProperties}
                     >
                       {t}
                     </li>
@@ -644,7 +688,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
                   <span
                     key={l.label}
                     className="work-chip inline-block"
-                    style={{ "--work-delay": `${linksStartMs + idx * 20}ms` } as CSSProperties}
+                    style={{ "--work-delay": `${linksStartMs + idx * 65}ms` } as CSSProperties}
                   >
                     <SafeLink
                       url={l.url}
@@ -673,8 +717,8 @@ export function Projects() {
     lines: workHeadlineLines,
     wordClassName: "work-word",
     delayVar: "--work-delay",
-    staggerMs: 26,
-    startDelayMs: 10,
+    staggerMs: 65,
+    startDelayMs: 40,
   });
 
   return (
@@ -705,8 +749,8 @@ export function Skills() {
     lines: skillsHeadlineLines,
     wordClassName: "work-word",
     delayVar: "--work-delay",
-    staggerMs: 26,
-    startDelayMs: 10,
+    staggerMs: 65,
+    startDelayMs: 40,
   });
 
   return (
@@ -785,7 +829,7 @@ function StaggeredSectionHead({
             <span key={`p-${idx}`}>
               <span
                 className="work-word inline-block"
-                style={{ "--work-delay": `${10 + wordIdx++ * 26}ms` } as CSSProperties}
+                style={{ "--work-delay": `${40 + wordIdx++ * 65}ms` } as CSSProperties}
               >
                 {word}
               </span>{" "}
@@ -794,7 +838,7 @@ function StaggeredSectionHead({
           {accentWords.map((word, idx) => {
             const startChar = accentCharOffset;
             accentCharOffset += word.length;
-            const delayMs = 10 + wordIdx++ * 26;
+            const delayMs = 40 + wordIdx++ * 65;
             const denom = Math.max(1, totalAccentChars - word.length);
             const style: CSSProperties =
               accentWords.length === 1
@@ -1006,8 +1050,8 @@ export function Approach() {
     lines: approachHeadlineLines,
     wordClassName: "work-word",
     delayVar: "--work-delay",
-    staggerMs: 26,
-    startDelayMs: 10,
+    staggerMs: 65,
+    startDelayMs: 40,
   });
 
   const items = [
