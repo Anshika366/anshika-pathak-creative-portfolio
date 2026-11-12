@@ -81,8 +81,9 @@ function buildCalendarWeeks(days: ContributionDay[]) {
   let lastLabeledCol = -4;
 
   weeks.forEach((week, colIdx) => {
-    const anchorDay = week.find((d): d is ContributionDay => d !== null && Number(d.date.slice(8, 10)) <= 7)
-      ?? week.find((d): d is ContributionDay => d !== null);
+    const anchorDay =
+      week.find((d): d is ContributionDay => d !== null && Number(d.date.slice(8, 10)) <= 7) ??
+      week.find((d): d is ContributionDay => d !== null);
     if (!anchorDay) return;
 
     const monthKey = anchorDay.date.slice(0, 7);
@@ -116,16 +117,13 @@ export function GitHubActivity() {
   const { data, isPending, isError, refetch, isFetching } = useQuery({
     queryKey: ["github-contributions", "Anshika366"],
     queryFn: () => getGithubContributions(),
-    staleTime: 10 * 60 * 1000,
-    refetchInterval: 15 * 60 * 1000,
+    staleTime: 2 * 60 * 1000,
+    refetchInterval: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
     retry: 1,
   });
 
-  const { weeks, monthLabels } = useMemo(
-    () => buildCalendarWeeks(data?.days ?? []),
-    [data?.days],
-  );
+  const { weeks, monthLabels } = useMemo(() => buildCalendarWeeks(data?.days ?? []), [data?.days]);
 
   const monthLabelByCol = useMemo(
     () => new Map(monthLabels.map((item) => [item.colIdx, item.label])),
@@ -164,10 +162,7 @@ export function GitHubActivity() {
     >
       <AnimatedSectionHead
         label="OPEN SOURCE & CONSISTENCY"
-        lines={[
-          { text: "GITHUB" },
-          { text: "ACTIVITY.", accent: true },
-        ]}
+        lines={[{ text: "GITHUB" }, { text: "ACTIVITY.", accent: true }]}
         inline
         className="mb-10 md:mb-12"
       />
@@ -191,14 +186,21 @@ export function GitHubActivity() {
                         {(data.allTimeContributions ?? data.totalContributions).toLocaleString()}
                       </span>
                       <span className="text-sm text-muted-foreground sm:text-base">
-                        total contributions
+                        {data.visibility === "public"
+                          ? "public total contributions"
+                          : "total contributions"}
                       </span>
                     </div>
                     <p className="mt-1 font-mono text-[11px] tracking-[0.18em] text-muted-foreground/85 uppercase">
-                      {data.allTimeContributions && data.allTimeContributions !== data.totalContributions
-                        ? `${data.totalContributions.toLocaleString()} in the last year · `
+                      {data.allTimeContributions &&
+                      data.allTimeContributions !== data.totalContributions
+                        ? `${data.totalContributions.toLocaleString()}${data.visibility === "public" ? " public" : ""} in the last year · `
+                        : ""}
+                      {data.visibility === "public-and-private" && data.privateContributionsCount
+                        ? `${data.privateContributionsCount.toLocaleString()} private · `
                         : ""}
                       {formatContributionPeriod(data.startDate, data.endDate)} · @{data.username}
+                      {data.visibility === "public" ? " · Public visibility" : ""}
                     </p>
                   </>
                 ) : isPending ? (
@@ -337,7 +339,11 @@ export function GitHubActivity() {
                           className="grid flex-1 grid-cols-[repeat(var(--weeks-count),minmax(0,1fr))] gap-[3px]"
                         >
                           {weeks.map((week, colIdx) => (
-                            <div key={colIdx} role="rowgroup" className="grid grid-rows-7 gap-[3px]">
+                            <div
+                              key={colIdx}
+                              role="rowgroup"
+                              className="grid grid-rows-7 gap-[3px]"
+                            >
                               {week.map((day, rowIdx) =>
                                 day ? (
                                   <button
@@ -370,8 +376,15 @@ export function GitHubActivity() {
                 {/* Footer bar: Live status & Less — More legend */}
                 <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-[11px] text-muted-foreground">
                   <span className="inline-flex items-center gap-2 font-mono tracking-wider">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#39d353] shadow-[0_0_8px_rgba(57,211,83,0.75)]" aria-hidden />
-                    LIVE DATA VIA GITHUB
+                    <span
+                      className="h-1.5 w-1.5 rounded-full bg-[#39d353] shadow-[0_0_8px_rgba(57,211,83,0.75)]"
+                      aria-hidden
+                    />
+                    {data.visibility === "public"
+                      ? "PUBLIC DATA VIA GITHUB (PRIVATE HIDDEN)"
+                      : data.visibility === "public-and-private"
+                        ? "LIVE DATA VIA GITHUB (PUBLIC & PRIVATE)"
+                        : "LIVE DATA VIA GITHUB"}
                   </span>
 
                   <div className="flex items-center gap-1.5 font-mono text-[10px] tracking-wider">
