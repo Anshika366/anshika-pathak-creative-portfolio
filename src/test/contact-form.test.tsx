@@ -51,12 +51,18 @@ describe("Contact confirmation auto-dismiss and Footer social links", () => {
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
   });
 
-  it("renders the LinkedIn, GitHub, and email links in Footer", () => {
-    render(<Footer />);
+  it("renders GitHub, LinkedIn, email links, and Pune, India location in Contact and Footer", () => {
+    render(
+      <>
+        <Contact />
+        <Footer />
+      </>,
+    );
     const links = screen.getAllByRole("link").map((el) => el.getAttribute("href"));
-    expect(links).toContain("https://www.linkedin.com/in/anshikapathakdev/");
-    expect(links).toContain("https://github.com/Anshika366");
-    expect(links).toContain("mailto:anshikapathak25@navgurukul.org");
+    expect(links.filter((href) => href === "https://github.com/Anshika366").length).toBeGreaterThanOrEqual(2);
+    expect(links.filter((href) => href === "https://www.linkedin.com/in/anshikapathakdev/").length).toBeGreaterThanOrEqual(2);
+    expect(links.filter((href) => href === "mailto:anshikapathak25@navgurukul.org").length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByText("Pune, India")).toBeInTheDocument();
   });
 });
 

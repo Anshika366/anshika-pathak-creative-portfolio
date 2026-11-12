@@ -4,8 +4,23 @@ import { Hero } from "@/components/portfolio/Hero";
 import { About, Projects, Skills, Education, Experience, Approach } from "@/components/portfolio/Sections";
 import { GitHubActivity } from "@/components/portfolio/GitHubActivity";
 import { Contact, Footer } from "@/components/portfolio/Contact";
+import { getGithubContributions } from "@/lib/github-contributions";
 
 export const Route = createFileRoute("/")({
+  loader: async ({ context }) => {
+    try {
+      await Promise.race([
+        context.queryClient.ensureQueryData({
+          queryKey: ["github-contributions", "Anshika366"],
+          queryFn: () => getGithubContributions(),
+          staleTime: 10 * 60 * 1000,
+        }),
+        new Promise((resolve) => setTimeout(resolve, 1000)),
+      ]);
+    } catch {
+      // Non-blocking: client useQuery handles fetch/retry gracefully
+    }
+  },
   head: () => ({
     meta: [
       { title: "Anshika Pathak — Full-Stack Developer & AI Enthusiast" },
@@ -15,6 +30,7 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "preload", as: "image", href: "/images/portfolio-portrait.png" }],
   }),
   component: Index,
 });

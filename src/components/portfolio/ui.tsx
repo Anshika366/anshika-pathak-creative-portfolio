@@ -3,13 +3,14 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode, type R
 
 export function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
   const reduce = useReducedMotion();
+  const cappedDelay = Math.min(delay, 0.06);
   return (
     <motion.div
       className={className}
-      initial={reduce ? false : { opacity: 0, y: 20 }}
+      initial={reduce ? false : { opacity: 0.96, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.01 }}
+      transition={{ duration: 0.24, delay: cappedDelay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
@@ -26,7 +27,7 @@ export function SectionHead({ label, title }: { label: string; title: ReactNode 
 }
 
 /** Triggers on viewport entry and silently resets once completely outside the viewport. */
-export function useReplayInView<T extends HTMLElement>(ref: RefObject<T | null>, minRatio = 0.15) {
+export function useReplayInView<T extends HTMLElement>(ref: RefObject<T | null>, minRatio = 0.02) {
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
@@ -38,12 +39,17 @@ export function useReplayInView<T extends HTMLElement>(ref: RefObject<T | null>,
       return;
     }
 
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setInView(true);
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry) return;
         if (!entry.isIntersecting) {
           setInView(false);
-        } else if (entry.intersectionRatio >= minRatio || entry.boundingClientRect.height < window.innerHeight * 0.2) {
+        } else if (entry.intersectionRatio >= minRatio || entry.boundingClientRect.height < window.innerHeight * 0.25) {
           setInView(true);
         }
       },
@@ -88,7 +94,7 @@ export function AnimatedSectionHead({
             let charOffset = 0;
 
             const renderedWords = words.map((word, wIdx) => {
-              const delayMs = 40 + wordIdx++ * 65;
+              const delayMs = 10 + wordIdx++ * 26;
               const startChar = charOffset;
               charOffset += word.length;
               const useSplitGradient = Boolean(segment.accent && words.length > 1);

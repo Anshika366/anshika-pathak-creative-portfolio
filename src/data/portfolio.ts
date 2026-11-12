@@ -21,8 +21,8 @@ export const profile = {
   role: "Full-Stack Developer & AI Enthusiast",
   email: "anshikapathak25@navgurukul.org",
   linkedin: "https://www.linkedin.com/in/anshikapathakdev/",
-  github: "", // e.g. "https://github.com/your-handle"
-  location: "[YOUR CITY, COUNTRY]",
+  github: "https://github.com/Anshika366",
+  location: "Pune, India",
   resumeUrl: "/resume.pdf", // replace public/resume.pdf with your real resume
   portrait: "/images/portfolio-portrait.png",
 };

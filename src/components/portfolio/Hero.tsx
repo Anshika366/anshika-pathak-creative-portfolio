@@ -116,17 +116,12 @@ function AnimatedStatValue({ value, active, delay, reduce }: { value: string; ac
   const match = value.match(/^(\d+)(.*)$/);
   const target = match ? Number(match[1]) : null;
   const suffix = match ? match[2] : "";
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(target ?? 0);
 
   useEffect(() => {
-    if (target === null || reduce) return;
-    if (!active) {
-      setCount(0);
-      return;
-    }
-    setCount(0);
+    if (target === null || reduce || !active) return;
     const controls = animate(0, target, {
-      duration: 0.95,
+      duration: 0.48,
       delay,
       ease: [0.22, 1, 0.36, 1],
       onUpdate: (latest) => setCount(Math.round(latest)),
@@ -135,14 +130,14 @@ function AnimatedStatValue({ value, active, delay, reduce }: { value: string; ac
   }, [active, delay, reduce, target]);
 
   if (target === null || reduce) return <>{value}</>;
-  return <>{`${active ? count : 0}${suffix}`}</>;
+  return <>{`${count}${suffix}`}</>;
 }
 
 export function Hero() {
   const reduce = useReducedMotion();
   const [parallaxEnabled, setParallaxEnabled] = useState(false);
   const statsRef = useRef<HTMLDivElement>(null);
-  const [statsInView, setStatsInView] = useState(false);
+  const [statsInView, setStatsInView] = useState(true);
 
 
   useEffect(() => {
@@ -152,19 +147,19 @@ export function Hero() {
       (entries) => {
         for (const entry of entries) {
           setStatsInView((prev) => {
-            if (!prev && entry.isIntersecting && entry.intersectionRatio >= 0.18) return true;
+            if (!prev && entry.isIntersecting && entry.intersectionRatio >= 0.05) return true;
             if (prev && !entry.isIntersecting) return false;
             return prev;
           });
         }
       },
-      { threshold: [0, 0.18] },
+      { threshold: [0, 0.05] },
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, [reduce]);
 
-  // Precompute continuous non-space character indices for smooth 25ms staggered headline reveal
+  // Precompute continuous non-space character indices for crisp immediate display with subtle motion
   let charCounter = 0;
   const renderedHeadline = headlineLines.map((line, lineIdx) => {
     const lineNonSpaceChars = line.text.replace(/\s+/g, "").length;
@@ -186,13 +181,13 @@ export function Hero() {
               return (
                 <motion.span
                   key={`${lineIdx}-${wIdx}-${cIdx}`}
-                  style={accentGradientStyle}
+                  {...(accentGradientStyle ? { style: accentGradientStyle } : {})}
                   className={`inline-block ${line.accent ? "text-gradient-accent" : ""}`}
-                  initial={reduce ? false : { opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={reduce ? false : { y: 6 }}
+                  animate={{ y: 0 }}
                   transition={{
-                    duration: reduce ? 0 : 0.34,
-                    delay: reduce ? 0 : globalIdx * 0.025,
+                    duration: reduce ? 0 : 0.22,
+                    delay: reduce ? 0 : Math.min(globalIdx * 0.004, 0.14),
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
@@ -256,31 +251,26 @@ export function Hero() {
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-end gap-8 px-5 pb-0 pt-10 md:px-8 lg:grid-cols-[1.15fr_1fr] lg:gap-10 lg:pt-14">
         <div className="min-w-0 pb-4 lg:self-center lg:pb-14">
-          <motion.p
-            className="mb-6 flex items-center gap-3 font-mono text-[11px] tracking-[0.3em] text-primary"
-            initial={reduce ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: reduce ? 0 : 0.55, delay: reduce ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <p className="mb-6 flex items-center gap-3 font-mono text-[11px] tracking-[0.3em] text-primary">
             <span className="h-px w-8 bg-primary" />FULL-STACK DEVELOPER & AI ENTHUSIAST
-          </motion.p>
+          </p>
           <h1 className="font-display text-[clamp(2.45rem,11.6vw,4.5rem)] leading-[0.9] uppercase sm:text-7xl lg:text-[3.85rem] xl:text-[4.85rem] 2xl:text-[5.2rem]">
             <span className="sr-only">Turning Ideas Into Intelligent Digital Experiences.</span>
             <span aria-hidden="true">{renderedHeadline}</span>
           </h1>
           <motion.p
             className="mt-6 max-w-lg text-base text-muted-foreground md:text-lg"
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduce ? 0 : 0.55, delay: reduce ? 0 : 0.65, ease: [0.22, 1, 0.36, 1] }}
+            initial={reduce ? false : { y: 6 }}
+            animate={{ y: 0 }}
+            transition={{ duration: reduce ? 0 : 0.24, ease: [0.22, 1, 0.36, 1] }}
           >
             I build modern web applications, intuitive user experiences, secure backend systems, and practical AI-powered tools that solve real-world problems.
           </motion.p>
           <motion.div
             className="mt-8 flex flex-wrap gap-3 sm:gap-4"
-            initial={reduce ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduce ? 0 : 0.55, delay: reduce ? 0 : 0.95, ease: [0.22, 1, 0.36, 1] }}
+            initial={reduce ? false : { y: 8 }}
+            animate={{ y: 0 }}
+            transition={{ duration: reduce ? 0 : 0.26, delay: reduce ? 0 : 0.04, ease: [0.22, 1, 0.36, 1] }}
           >
             <a href="#work" className="rounded-full bg-gradient-accent px-5 py-3.5 text-center text-xs font-semibold tracking-widest text-primary-foreground shadow-glow transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_0_48px_-4px_color-mix(in_oklab,var(--primary)_78%,transparent)] active:scale-[0.99] sm:px-7 sm:py-4">VIEW MY WORK ↗</a>
             <a href={profile.resumeUrl} download className="rounded-full border border-border px-5 py-3.5 text-center text-xs font-semibold tracking-widest transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-primary hover:bg-primary/5 hover:text-primary hover:shadow-[0_0_24px_-8px_color-mix(in_oklab,var(--primary)_45%,transparent)] active:scale-[0.99] sm:px-7 sm:py-4">DOWNLOAD RESUME ↓</a>
@@ -292,7 +282,7 @@ export function Hero() {
             {/* Multi-layered ambient radial orange lighting around hair, shoulders, and backdrop */}
             <motion.div
               aria-hidden
-              style={parallaxEnabled ? { x: ambientX, y: ambientY } : undefined}
+              {...(parallaxEnabled ? { style: { x: ambientX, y: ambientY } } : {})}
               className="pointer-events-none absolute -inset-x-[18%] -top-[12%] bottom-0 z-0"
             >
               <div className="animate-halo-breathe absolute left-[52%] top-[41%] h-[88%] w-[94%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,82,42,0.44)_0%,rgba(229,57,53,0.20)_44%,transparent_72%)] blur-3xl" />
@@ -303,7 +293,7 @@ export function Hero() {
             {/* Glowing orange-red circular halo ring behind the portrait */}
             <motion.div
               aria-hidden
-              style={parallaxEnabled ? { x: haloX, y: haloY } : undefined}
+              {...(parallaxEnabled ? { style: { x: haloX, y: haloY } } : {})}
               className="pointer-events-none absolute left-[52%] top-[41%] z-[2] aspect-square w-[76%] -translate-x-1/2 -translate-y-1/2"
             >
               {/* Subtle luminous radial glow inside the circle */}
@@ -337,16 +327,15 @@ export function Hero() {
 
             {/* Portrait positioned in front of the glowing ring (unmodified PNG, no CSS filters) */}
             <motion.div
-              style={parallaxEnabled ? { x: portraitX, y: portraitY } : undefined}
-              initial={reduce ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: reduce ? 0 : 0.85, delay: reduce ? 0 : 0.15, ease: [0.22, 1, 0.36, 1] }}
+              {...(parallaxEnabled ? { style: { x: portraitX, y: portraitY } } : {})}
               className="relative z-10 h-full w-full origin-bottom"
             >
               {portraitSrc ? (
                 <img
                   src={portraitSrc}
                   alt={`Portrait of ${profile.name}`}
+                  decoding="async"
+                  fetchPriority="high"
                   className="block h-full w-full select-none object-contain object-bottom [mask-image:linear-gradient(to_bottom,black_96%,transparent_100%)]"
                 />
               ) : (
@@ -362,7 +351,7 @@ export function Hero() {
             {floatCards.map(({ label, icon: Icon, pos, duration, delay }) => (
               <motion.div
                 key={label}
-                style={parallaxEnabled ? { x: cardX, y: cardY } : undefined}
+                {...(parallaxEnabled ? { style: { x: cardX, y: cardY } } : {})}
                 className={`absolute ${pos} z-20`}
               >
                 <div
@@ -393,7 +382,7 @@ export function Hero() {
           <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(255,77,45,0.12)_0%,transparent_70%)]" />
           {stats.map((s, i) => {
             const Icon = statIcons[s.icon];
-            const itemDelay = reduce ? 0 : i * 0.12;
+            const itemDelay = reduce ? 0 : i * 0.04;
             const revealed = !!reduce || statsInView;
             const snapReset = !revealed || !!reduce;
             return (
@@ -406,17 +395,17 @@ export function Hero() {
                   className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_28%_50%,rgba(255,77,45,0.11)_0%,transparent_72%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 />
                 <motion.div
-                  initial={reduce ? false : { opacity: 0, y: -14, scale: 0.92 }}
-                  animate={revealed ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: -14, scale: 0.92 }}
-                  transition={{ duration: snapReset ? 0 : 0.55, delay: snapReset ? 0 : itemDelay, ease: [0.22, 1, 0.36, 1] }}
+                  initial={false}
+                  animate={revealed ? { y: 0, scale: 1 } : { y: -6, scale: 0.96 }}
+                  transition={{ duration: snapReset ? 0 : 0.25, delay: snapReset ? 0 : itemDelay, ease: [0.22, 1, 0.36, 1] }}
                   className="relative z-10 shrink-0"
                 >
                   {/* Settling cinematic orange glow on entry */}
                   <motion.span
                     aria-hidden
-                    initial={reduce ? false : { opacity: 0, scale: 0.85 }}
-                    animate={revealed ? { opacity: reduce ? 0.25 : [0, 0.9, 0.25], scale: reduce ? 1 : [0.85, 1.18, 1] } : { opacity: 0, scale: 0.85 }}
-                    transition={{ duration: snapReset ? 0 : 0.9, delay: snapReset ? 0 : itemDelay, ease: [0.22, 1, 0.36, 1] }}
+                    initial={false}
+                    animate={revealed ? { opacity: 0.25, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                    transition={{ duration: snapReset ? 0 : 0.35, delay: snapReset ? 0 : itemDelay, ease: [0.22, 1, 0.36, 1] }}
                     className="pointer-events-none absolute -inset-1.5 rounded-2xl bg-[radial-gradient(circle,rgba(255,85,40,0.65)_0%,transparent_72%)] blur-md"
                   />
                   <span className="relative grid h-9 w-9 place-items-center rounded-xl border border-primary/30 bg-primary/10 text-primary shadow-[0_0_18px_-6px_rgba(255,77,45,0.55)] transition-all duration-300 ease-out lg:group-hover:-translate-y-1 lg:group-hover:scale-105 group-hover:border-primary/65 group-hover:bg-primary/15 group-hover:shadow-[0_0_26px_-3px_rgba(255,77,45,0.82)] sm:h-11 sm:w-11">
@@ -424,9 +413,9 @@ export function Hero() {
                   </span>
                 </motion.div>
                 <motion.div
-                  initial={reduce ? false : { opacity: 0, y: 8 }}
-                  animate={revealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-                  transition={{ duration: snapReset ? 0 : 0.48, delay: snapReset ? 0 : itemDelay + 0.05, ease: [0.22, 1, 0.36, 1] }}
+                  initial={false}
+                  animate={revealed ? { y: 0 } : { y: 4 }}
+                  transition={{ duration: snapReset ? 0 : 0.24, delay: snapReset ? 0 : itemDelay, ease: [0.22, 1, 0.36, 1] }}
                   className="relative z-10 min-w-0"
                 >
                   <p className="font-heading text-sm font-bold tabular-nums tracking-tight text-foreground transition-colors duration-300 group-hover:text-white sm:text-xl lg:text-2xl">
